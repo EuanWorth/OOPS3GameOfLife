@@ -1,0 +1,172 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PackedLong</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">uk.ac.cam.ecw66.game_of_life</a>
+</div>
+
+<h1>Coverage Summary for Class: PackedLong (uk.ac.cam.ecw66.game_of_life)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PackedLong</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/*
+&nbsp; * Copyright 2023 David Berry &lt;dgb37@cam.ac.uk&gt;, Joe Isaacs &lt;josi2@cam.ac.uk&gt;, Andrew Rice &lt;acr31@cam.ac.uk&gt;, E.C. Worth
+&nbsp; *
+&nbsp; * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+&nbsp; * you may not use this file except in compliance with the License.
+&nbsp; * You may obtain a copy of the License at
+&nbsp; *
+&nbsp; *    http://www.apache.org/licenses/LICENSE-2.0
+&nbsp; *
+&nbsp; * Unless required by applicable law or agreed to in writing, software
+&nbsp; * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+&nbsp; * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+&nbsp; * See the License for the specific language governing permissions and
+&nbsp; * limitations under the License.
+&nbsp; */
+&nbsp;
+&nbsp;package uk.ac.cam.ecw66.game_of_life;
+&nbsp;
+&nbsp;import java.util.AbstractList;
+&nbsp;
+&nbsp;class PackedLong extends AbstractList&lt;Boolean&gt; {
+&nbsp;  public long getLong() {
+<b class="fc">&nbsp;    return packed;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public void setLong(long packed) {
+<b class="fc">&nbsp;    this.packed = packed;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  private long packed;
+&nbsp;  /**
+&nbsp;   * Unpack the nth bit from the packed number and return it
+&nbsp;   * @param position the position of the bit we are interested in from 0 to 63 inclusive
+&nbsp;   * @return the value of the position&#39;th bit
+&nbsp;   */
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public Boolean get(int position) {
+<b class="fc">&nbsp;    return ((packed &gt;&gt;&gt; position) &amp; 1) == 1;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Set the nth bit in the packed number to the value given and return the new packed number
+&nbsp;   *
+&nbsp;   * @param position the position of the bit of interest
+&nbsp;   * @param value the value to set the bit to
+&nbsp;   */
+&nbsp;  public void set(int position, boolean value) {
+&nbsp;    if (value) {
+<b class="fc">&nbsp;      packed |= 1L &lt;&lt; position;</b>
+<b class="fc">&nbsp;    } else {</b>
+&nbsp;      packed &amp;= ~(1L &lt;&lt; position);
+<b class="fc">&nbsp;    }</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  // No instances
+&nbsp;  public PackedLong(long packed) {
+<b class="fc">&nbsp;    this.packed = packed;</b>
+<b class="fc">&nbsp;  }</b>
+&nbsp;
+&nbsp;  public PackedLong() {
+&nbsp;    this(0L);
+<b class="fc">&nbsp;  }</b>
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public int size() {
+&nbsp;    return 64;
+<b class="nc">&nbsp;  }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-01-05 18:01</div>
+</div>
+</body>
+</html>
