@@ -44,7 +44,6 @@ class PackedLong extends AbstractList<Boolean> {
    *
    * @param position the position of the bit of interest
    * @param value the value to set the bit to
-   * @return the new packed number
    */
   public void set(int position, boolean value) {
     if (value) {

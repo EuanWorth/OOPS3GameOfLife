@@ -112,4 +112,16 @@ public class PackedLongTest {
     assertThat(packedLongsLong).isEqualTo(0x8000000000000000L);
 
   }
+
+  @Test
+  public void sizeWorks() {
+    //ARRANGE
+    PackedLong pl = new PackedLong();
+
+    //ACT
+    int size = pl.size();
+
+    //ASSERT
+    assertThat(pl.size()).isEqualTo(64);
+  }
 }
