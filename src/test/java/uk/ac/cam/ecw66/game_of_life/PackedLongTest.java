@@ -28,46 +28,46 @@ public class PackedLongTest {
   @Test
   public void set_onlyChangesAffectedPosition() {
     // ARRANGE
-    long initial = 0xF00000000000000FL;
+    PackedLong packedLong = new PackedLong(0xF00000000000000FL);
 
     // ACT
-    long updated = PackedLong.set(initial, 4, true);
+    packedLong.set(4, true);
 
     // ASSERT
-    assertThat(updated).isEqualTo(0xF00000000000001FL);
+    assertThat(packedLong.getLong()).isEqualTo(0xF00000000000001FL);
   }
 
   @Test
   public void clear_onlyChangesAffectedPosition() {
     // ARRANGE
-    long initial = 0xF00000000000001FL;
+    PackedLong packedLong = new PackedLong(0xF00000000000000FL);
 
     // ACT
-    long updated = PackedLong.set(initial, 4, false);
+    packedLong.set(4, false);
 
     // ASSERT
-    assertThat(updated).isEqualTo(0xF00000000000000FL);
+    assertThat(packedLong.getLong()).isEqualTo(0xF00000000000000FL);
   }
 
   @Test
   public void set_setsHighestBit_atPosition63() {
     // ARRANGE
-    long initial = 0x0000000000000000L;
+    PackedLong packedLong = new PackedLong(0x000000000000000FL);
 
     // ACT
-    long updated = PackedLong.set(initial, 63, true);
+    packedLong.set(63, true);
 
     // ASSERT
-    assertThat(updated).isEqualTo(0x8000000000000000L);
+    assertThat(packedLong.getLong()).isEqualTo(0x800000000000000FL);
   }
 
   @Test
   public void get_getsHighestBit_whenPosition63IsSet() {
     // ARRANGE
-    long initial = 0x8000000000000000L;
+    PackedLong packedLong = new PackedLong(0x8000000000000000L);
 
     // ACT
-    boolean value = PackedLong.get(initial, 63);
+    boolean value = packedLong.get(63);
 
     // ASSERT
     assertThat(value).isTrue();
@@ -76,10 +76,10 @@ public class PackedLongTest {
   @Test
   public void get_getsHighestBit_whenPosition63IsClear() {
     // ARRANGE
-    long initial = 0x7000000000000000L;
+    PackedLong packedLong = new PackedLong(0x7000000000000000L);
 
     // ACT
-    boolean value = PackedLong.get(initial, 63);
+    boolean value = packedLong.get(63);
 
     // ASSERT
     assertThat(value).isFalse();

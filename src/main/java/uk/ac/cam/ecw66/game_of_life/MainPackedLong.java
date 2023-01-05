@@ -22,21 +22,22 @@ import java.util.List;
 public class MainPackedLong {
 
   public static void main(String[] args) {
-    long initialValue = Long.parseLong(args[0]);
+    PackedLong initialValue = new PackedLong(Long.parseLong(args[0]));
     int position = Integer.parseInt(args[1]);
     boolean value = Boolean.parseBoolean(args[2]);
 
-    long updatedValue = PackedLong.set(initialValue, position, value);
+    initialValue.set(position, value);
+    PackedLong updatedValue = initialValue;
 
     System.out.printf("Setting position %d to %s gives %s%n", position, value, updatedValue);
     System.out.printf("Initial: %s%n", getAllPositions(initialValue));
     System.out.printf("Final:   %s%n", getAllPositions(updatedValue));
   }
 
-  private static String getAllPositions(long packedLong) {
+  private static String getAllPositions(PackedLong packedLong) {
     List<String> all = new ArrayList<>();
     for (int i = 0; i < 64; i++) {
-      all.add(String.valueOf(PackedLong.get(packedLong, i) ? 1 : 0));
+      all.add(String.valueOf(packedLong.get(i) ? 1 : 0));
     }
     return String.join(",", all);
   }
