@@ -84,4 +84,32 @@ public class PackedLongTest {
     // ASSERT
     assertThat(value).isFalse();
   }
+
+
+  @Test
+  public void get_packedLongWorks() {
+    //ARRANGE
+    PackedLong packedLong = new PackedLong(0x7000000000000000L);
+
+    //ACT
+    long packedLongsLong = packedLong.getLong();
+
+    //ASSERT
+    assertThat(packedLongsLong).isEqualTo(0x7000000000000000L);
+
+  }
+
+  @Test
+  public void set_packedLongWorks() {
+    //ARRANGE
+    PackedLong packedLong = new PackedLong();
+
+    //ACT
+    packedLong.setLong(0x8000000000000000L);
+    long packedLongsLong = packedLong.getLong();
+
+    //ASSERT
+    assertThat(packedLongsLong).isEqualTo(0x8000000000000000L);
+
+  }
 }
