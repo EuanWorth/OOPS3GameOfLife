@@ -16,26 +16,51 @@
 
 package uk.ac.cam.ecw66.game_of_life;
 
-public final class TinyWorld implements World {
-  TinyWorld() {}
+public final class TinyWorld implements World, Cloneable {
+  PackedLong cells;
+
+  TinyWorld() {
+    cells = new PackedLong();
+  }
 
   @Override
   public int width() {
-    throw new UnsupportedOperationException();
+    return 8;
   }
 
   @Override
   public int height() {
-    throw new UnsupportedOperationException();
+    return 8;
   }
 
   @Override
   public boolean cellAlive(int col, int row) {
-    throw new UnsupportedOperationException();
+    if (0 <= col && col < width() && 0 <= row && row < height()) {
+      return cells.get(8 * col + row);
+    } else return false;
+  }
+
+  public static TinyWorld fromLong(long aLong) {
+    TinyWorld tw = new TinyWorld();
+    tw.cells = new PackedLong(aLong);
+    return tw;
+  }
+
+  public static TinyWorld fromPackedLong(PackedLong aPackedLong) {
+    TinyWorld tw = new TinyWorld();
+    tw.cells = aPackedLong.clone();
+    return tw;
   }
 
   @Override
   public TinyWorld withCellAliveness(int col, int row, boolean b) {
-    throw new UnsupportedOperationException();
+    TinyWorld clone = this.clone();
+    clone.cells.set(8 * col + row, b);
+    return clone;
+  }
+
+  @Override
+  public TinyWorld clone() {
+    return TinyWorld.fromPackedLong(this.cells);
   }
 }

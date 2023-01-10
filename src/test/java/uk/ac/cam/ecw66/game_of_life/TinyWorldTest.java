@@ -40,6 +40,18 @@ public class TinyWorldTest {
   }
 
   @Test
+  public void heigth_returns8() {
+    // ARRANGE
+    TinyWorld tinyWorld = new TinyWorld();
+
+    // ACT
+    int width = tinyWorld.height();
+
+    // ASSERT
+    assertThat(width).isEqualTo(8);
+  }
+
+  @Test
   public void cellAlive_returnsFalse_whenOutOfRange() {
     // ARRANGE
     TinyWorld tinyWorld = new TinyWorld();
@@ -71,5 +83,95 @@ public class TinyWorldTest {
                 "________",
                 "________",
                 "________"));
+  }
+
+  @Test
+  public void withCellAliveness_createsCorrectChanges() {
+    // ARRANGE
+    TinyWorld tinyWorld = new TinyWorld();
+
+    // ACT
+    TinyWorld newWorld = tinyWorld.withCellAliveness(0, 0, true);
+
+    // ASSERT
+    assertThat(worldToString(newWorld))
+            .isEqualTo(
+                    lines(
+                            "#_______",
+                            "________",
+                            "________",
+                            "________",
+                            "________",
+                            "________",
+                            "________",
+                            "________"));
+  }
+
+  @Test
+  public void getFromLong() {
+    //ARRANGE
+    long myLong = 0x8000000000000000L;
+
+    //ACT
+    TinyWorld tinyWorld = TinyWorld.fromLong(myLong);
+
+    //ASSERT
+    assertThat(worldToString(tinyWorld))
+            .isEqualTo(
+                    lines(
+                            "________",
+                            "________",
+                            "________",
+                            "________",
+                            "________",
+                            "________",
+                            "________",
+                            "_______#"));
+  }
+
+  @Test
+  public void getFromPackedLong() {
+    //ARRANGE
+    PackedLong myLong = new PackedLong(0x8000000000000000L);
+
+    //ACT
+    TinyWorld tinyWorld = TinyWorld.fromPackedLong(myLong);
+
+    //ASSERT
+    assertThat(worldToString(tinyWorld))
+            .isEqualTo(
+                    lines(
+                            "________",
+                            "________",
+                            "________",
+                            "________",
+                            "________",
+                            "________",
+                            "________",
+                            "_______#"));
+  }
+
+  @Test
+  public void cellAlive_returnsFalse_whenDeadCell() {
+    // ARRANGE
+    TinyWorld tinyWorld = new TinyWorld();
+
+    // ACT
+    boolean cellAlive = tinyWorld.cellAlive(7, 7);
+
+    // ASSERT
+    assertThat(cellAlive).isFalse();
+  }
+
+  @Test
+  public void cellAlive_returnsTrue_whenAliveCell() {
+    // ARRANGE
+    TinyWorld tinyWorld = TinyWorld.fromPackedLong(new PackedLong(0x8000000000000000L));
+
+    // ACT
+    boolean cellAlive = tinyWorld.cellAlive(7, 7);
+
+    // ASSERT
+    assertThat(cellAlive).isTrue();
   }
 }
