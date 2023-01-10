@@ -16,6 +16,8 @@
 
 package uk.ac.cam.ecw66.game_of_life;
 
+import java.util.Objects;
+
 public final class TinyWorld implements World, Cloneable {
   PackedLong cells;
 
@@ -62,5 +64,23 @@ public final class TinyWorld implements World, Cloneable {
   @Override
   public TinyWorld clone() {
     return TinyWorld.fromPackedLong(this.cells);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TinyWorld tinyWorld = (TinyWorld) o;
+    for (int i = 0; i < width(); ++i) {
+      for (int j = 0; j < height(); ++j) {
+        if (this.cellAlive(i,j) != tinyWorld.cellAlive(i,j)) return false;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(cells);
   }
 }

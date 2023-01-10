@@ -73,4 +73,9 @@ class PackedLong extends AbstractList<Boolean> implements Cloneable {
     public PackedLong clone() {
         return new PackedLong(this.packed);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 }

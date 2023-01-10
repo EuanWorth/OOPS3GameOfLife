@@ -17,8 +17,7 @@
 package uk.ac.cam.ecw66.game_of_life;
 
 import static com.google.common.truth.Truth.assertThat;
-import static uk.ac.cam.ecw66.game_of_life.WorldStringUtils.lines;
-import static uk.ac.cam.ecw66.game_of_life.WorldStringUtils.worldToString;
+import static uk.ac.cam.ecw66.game_of_life.WorldStringUtils.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -166,12 +165,46 @@ public class TinyWorldTest {
   @Test
   public void cellAlive_returnsTrue_whenAliveCell() {
     // ARRANGE
-    TinyWorld tinyWorld = TinyWorld.fromPackedLong(new PackedLong(0x8000000000000000L));
+    TinyWorld tinyWorld = TinyWorld.fromLong(0x8000000000000000L);
 
     // ACT
     boolean cellAlive = tinyWorld.cellAlive(7, 7);
 
     // ASSERT
     assertThat(cellAlive).isTrue();
+  }
+
+  @Test
+  public void stringToWorldWorks() {
+    //ARRANGE
+    TinyWorld tinyWorld = TinyWorld.fromLong(0x8000000000000000L);
+    //ACT
+    TinyWorld tinyWorld1 = (TinyWorld) stringToWorld(
+            new TinyWorld(),
+            "________",
+            "________",
+            "________",
+            "________",
+            "________",
+            "________",
+            "________",
+            "_______#");
+    boolean equal = tinyWorld.equals(tinyWorld1);
+
+    //ASSERT
+    assertThat(equal).isTrue();
+  }
+
+  @Test
+  public void cloneAndEqualsIsTrue() {
+    //ARRANGE
+    TinyWorld tinyWorld = TinyWorld.fromLong(0x1517815615615123L);
+
+    //ACT
+    TinyWorld clone = tinyWorld.clone();
+    boolean equal = clone.equals(tinyWorld);
+
+    //ASSERT
+    assertThat(equal).isTrue();
   }
 }
