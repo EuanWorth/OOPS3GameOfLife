@@ -73,4 +73,40 @@ public class WorldNextGenerationTest {
     assertThat(next.cellAlive(0, 0)).isTrue();
     assertThat(next.cellAlive(1, 0)).isTrue();
   }
+
+  @Test
+  public void nextGeneration_hasAllCellsDead_whenCellAliveNextGenerationAlwaysDead() {
+    // ARRANGE
+    TwoElementWorld world = new TwoElementWorld(false, false) {
+      @Override
+      public boolean cellAliveNextGeneration(int col, int row) {
+        return false;
+      }
+    };
+
+    // ACT
+    World next = world.nextGeneration();
+
+    // ASSERT
+    assertThat(next.cellAlive(0, 0)).isFalse();
+    assertThat(next.cellAlive(1, 0)).isFalse();
+  }
+
+  @Test
+  public void nextGeneration_CalculatesAlivenessOfCorrectCellCorrectly() {
+    // ARRANGE
+    TwoElementWorld world = new TwoElementWorld(true, false) {
+      @Override
+      public boolean cellAliveNextGeneration(int col, int row) {
+        return col != 0;
+      }
+    };
+
+    // ACT
+    World next = world.nextGeneration();
+
+    // ASSERT
+    assertThat(next.cellAlive(0, 0)).isFalse();
+    assertThat(next.cellAlive(1, 0)).isTrue();
+  }
 }

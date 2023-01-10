@@ -22,26 +22,186 @@ import org.junit.Test;
 
 public class WorldAliveNextGenerationTest {
 
-  @Test
-  public void aliveNextGeneration_isBorn_withThreeNeighbours() {
-    // ARRANGE
-    StubWorld w =
-        new StubWorld() {
-          @Override
-          public boolean cellAlive(int col, int row) {
-            return false;
-          }
+    @Test
+    public void aliveNextGeneration_isBorn_withThreeNeighbours() {
+        // ARRANGE
+        StubWorld w =
+                new StubWorld() {
+                    @Override
+                    public boolean cellAlive(int col, int row) {
+                        return false;
+                    }
 
-          @Override
-          public int aliveNeighbourCount(int col, int row) {
-            return 3;
-          }
-        };
+                    @Override
+                    public int aliveNeighbourCount(int col, int row) {
+                        return 3;
+                    }
+                };
 
-    // ACT
-    boolean alive = w.cellAliveNextGeneration(1, 1);
+        // ACT
+        boolean alive = w.cellAliveNextGeneration(1, 1);
 
-    // ASSERT
-    assertThat(alive).isTrue();
-  }
+        // ASSERT
+        assertThat(alive).isTrue();
+    }
+
+    @Test
+    public void aliveNextGeneration_remainsAlive_withThreeNeighbours() {
+        // ARRANGE
+        StubWorld w =
+                new StubWorld() {
+                    @Override
+                    public boolean cellAlive(int col, int row) {
+                        return true;
+                    }
+
+                    @Override
+                    public int aliveNeighbourCount(int col, int row) {
+                        return 3;
+                    }
+                };
+
+        // ACT
+        boolean alive = w.cellAliveNextGeneration(1, 1);
+
+        // ASSERT
+        assertThat(alive).isTrue();
+    }
+
+    public void aliveNextGeneration_remainsDead_withTwoNeighbours() {
+        // ARRANGE
+        StubWorld w =
+                new StubWorld() {
+                    @Override
+                    public boolean cellAlive(int col, int row) {
+                        return false;
+                    }
+
+                    @Override
+                    public int aliveNeighbourCount(int col, int row) {
+                        return 2;
+                    }
+                };
+
+        // ACT
+        boolean alive = w.cellAliveNextGeneration(1, 1);
+
+        // ASSERT
+        assertThat(alive).isFalse();
+    }
+
+    @Test
+    public void aliveNextGeneration_remainsAlive_withTwoNeighbours() {
+        // ARRANGE
+        StubWorld w =
+                new StubWorld() {
+                    @Override
+                    public boolean cellAlive(int col, int row) {
+                        return true;
+                    }
+
+                    @Override
+                    public int aliveNeighbourCount(int col, int row) {
+                        return 2;
+                    }
+                };
+
+        // ACT
+        boolean alive = w.cellAliveNextGeneration(1, 1);
+
+        // ASSERT
+        assertThat(alive).isTrue();
+    }
+
+    @Test
+    public void aliveNextGeneration_dies_withZeroNeighbours() {
+        // ARRANGE
+        StubWorld w =
+                new StubWorld() {
+                    @Override
+                    public boolean cellAlive(int col, int row) {
+                        return true;
+                    }
+
+                    @Override
+                    public int aliveNeighbourCount(int col, int row) {
+                        return 0;
+                    }
+                };
+
+        // ACT
+        boolean alive = w.cellAliveNextGeneration(1, 1);
+
+        // ASSERT
+        assertThat(alive).isFalse();
+    }
+
+    @Test
+    public void aliveNextGeneration_staysDead_withZeroNeighbours() {
+        // ARRANGE
+        StubWorld w =
+                new StubWorld() {
+                    @Override
+                    public boolean cellAlive(int col, int row) {
+                        return false;
+                    }
+
+                    @Override
+                    public int aliveNeighbourCount(int col, int row) {
+                        return 0;
+                    }
+                };
+
+        // ACT
+        boolean alive = w.cellAliveNextGeneration(1, 1);
+
+        // ASSERT
+        assertThat(alive).isFalse();
+    }
+
+    @Test
+    public void aliveNextGeneration_staysDead_withSixNeighbours() {
+        // ARRANGE
+        StubWorld w =
+                new StubWorld() {
+                    @Override
+                    public boolean cellAlive(int col, int row) {
+                        return false;
+                    }
+
+                    @Override
+                    public int aliveNeighbourCount(int col, int row) {
+                        return 6;
+                    }
+                };
+
+        // ACT
+        boolean alive = w.cellAliveNextGeneration(1, 1);
+
+        // ASSERT
+        assertThat(alive).isFalse();
+    }
+
+    @Test
+    public void aliveNextGeneration_dies_withSixNeighbours() {
+        // ARRANGE
+        StubWorld w =
+                new StubWorld() {
+                    @Override
+                    public boolean cellAlive(int col, int row) {
+                        return true;
+                    }
+
+                    @Override
+                    public int aliveNeighbourCount(int col, int row) {
+                        return 6;
+                    }
+                };
+
+        // ACT
+        boolean alive = w.cellAliveNextGeneration(1, 1);
+
+        // ASSERT
+        assertThat(alive).isFalse();
+    }
 }

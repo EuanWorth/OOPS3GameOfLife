@@ -40,6 +40,12 @@ public class WorldAliveNeighbourCountTest {
           public boolean cellAlive(int col, int row) {
             return cells[row][col];
           }
+
+          @Override
+          public int width() {return 3;}
+
+            @Override
+            public int height() {return 3;}
         };
 
     // ACT
@@ -48,4 +54,64 @@ public class WorldAliveNeighbourCountTest {
     // ASSERT
     assertThat(neighbourCount).isEqualTo(0);
   }
+
+  @Test
+    public void aliveNeighbourCount_countsCorrectly() {
+        // ARRANGE
+        boolean[][] cells =
+                new boolean[][] {
+                        {true, false, false},
+                        {false, true, true},
+                        {false, true, false},
+                };
+        World w =
+                new StubWorld() {
+                    @Override
+                    public boolean cellAlive(int col, int row) {
+                        return cells[row][col];
+                    }
+
+                    @Override
+                    public int width() {return 3;}
+
+                    @Override
+                    public int height() {return 3;}
+                };
+
+        // ACT
+        int neighbourCount = w.aliveNeighbourCount(1, 1);
+
+        // ASSERT
+        assertThat(neighbourCount).isEqualTo(3);
+    }
+
+    @Test
+    public void aliveNeighbourCount_dealsWithEdges() {
+        // ARRANGE
+        boolean[][] cells =
+                new boolean[][] {
+                        {true, true, false},
+                        {false, true, true},
+                        {false, true, false},
+                };
+        World w =
+                new StubWorld() {
+                    @Override
+                    public boolean cellAlive(int col, int row) {
+                        return cells[row][col];
+                    }
+
+                    @Override
+                    public int width() {return 3;}
+
+                    @Override
+                    public int height() {return 3;}
+                };
+
+        // ACT
+        int neighbourCount = w.aliveNeighbourCount(0, 0);
+
+        // ASSERT
+        assertThat(neighbourCount).isEqualTo(2);
+    }
 }

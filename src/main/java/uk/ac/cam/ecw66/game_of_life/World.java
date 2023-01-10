@@ -62,7 +62,13 @@ interface World {
    * @return the number of neighbours which are alive
    */
   default int aliveNeighbourCount(int col, int row) {
-    throw new UnsupportedOperationException();
+    int count = 0;
+    for (int i = Math.max(0, col -1); i < Math.min(col + 2, width()); ++i) {
+      for (int j = Math.max(0, row -1); j < Math.min(row + 2, height()); ++j) {
+        if (cellAlive(i, j) && !(i == col && j == row)) count++;
+      }
+    }
+    return count;
   }
 
   /**
@@ -76,11 +82,19 @@ interface World {
    * @return true if the cell should be alive and false otherwise
    */
   default boolean cellAliveNextGeneration(int col, int row) {
-    throw new UnsupportedOperationException();
+    boolean Alive = cellAlive(col, row);
+    int neighbourCount = aliveNeighbourCount(col, row);
+    return neighbourCount == 3 || (neighbourCount == 2 && Alive);
   }
 
   /** Return a new world containing the next generation of alive cells. */
   default World nextGeneration() {
-    throw new UnsupportedOperationException();
+    World newWorld = this;
+    for (int i = 0; i < width(); ++i) {
+      for (int j = 0; j < height(); ++j) {
+        newWorld = newWorld.withCellAliveness(i, j, cellAliveNextGeneration(i, j));
+      }
+    }
+    return newWorld;
   }
 }
