@@ -124,4 +124,56 @@ public class PackedLongTest {
     //ASSERT
     assertThat(pl.size()).isEqualTo(64);
   }
+
+  @Test
+  public void equalsReturnsTrueOnClone() {
+    //ARRANGE
+    PackedLong pl1 = new PackedLong();
+
+    //ACT
+    boolean equals = pl1.clone().equals(pl1);
+
+    //ASSERT
+    assertThat(equals).isTrue();
+  }
+
+  @Test
+  public void equalsReturnsFalse() {
+    //ARRANGE
+    PackedLong pl1 = new PackedLong();
+    PackedLong pl2 = new PackedLong(0x383748373847L);
+
+    //ACT
+    boolean equals = pl2.equals(pl1);
+
+    //ASSERT
+    assertThat(equals).isFalse();
+  }
+
+  @Test
+  public void HashReturnsTrue() {
+    //ARRANGE
+    PackedLong pl1 = new PackedLong();
+
+    //ACT
+    int hash = pl1.hashCode();
+
+    //ASSERT
+    assertThat(hash).isEqualTo(363083744);
+  }
+
+  @Test
+  public void equalsHasEqualHash() {
+    //ARRANGE
+    PackedLong pl1 = new PackedLong();
+    PackedLong pl2 = new PackedLong();
+
+    //ACT
+    int hash1 = pl1.hashCode();
+    int hash2 = pl2.hashCode();
+
+    //ASSERT
+    assertThat(hash1).isEqualTo(hash2);
+  }
+
 }

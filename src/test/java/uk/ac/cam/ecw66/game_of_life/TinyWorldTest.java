@@ -207,4 +207,19 @@ public class TinyWorldTest {
     //ASSERT
     assertThat(equal).isTrue();
   }
+
+  @Test
+  public void clonesHaveEqualHash() {
+    //ARRANGE
+    TinyWorld tinyWorld = TinyWorld.fromLong(0x1517815615615123L);
+
+    //ACT
+    TinyWorld clone = tinyWorld.clone();
+    int hash1 = tinyWorld.hashCode();
+    int hash2 = tinyWorld.hashCode();
+    boolean equal = hash1 == hash2;
+
+    //ASSERT
+    assertThat(equal).isTrue();
+  }
 }

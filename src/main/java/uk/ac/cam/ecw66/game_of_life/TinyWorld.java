@@ -19,7 +19,7 @@ package uk.ac.cam.ecw66.game_of_life;
 import java.util.Objects;
 
 public final class TinyWorld implements World, Cloneable {
-  PackedLong cells;
+  private PackedLong cells;
 
   TinyWorld() {
     cells = new PackedLong();

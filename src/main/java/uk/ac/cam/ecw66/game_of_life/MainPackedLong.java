@@ -22,9 +22,9 @@ import java.util.List;
 public class MainPackedLong {
 
   public static void main(String[] args) {
-    PackedLong initialValue = new PackedLong(Long.parseLong(args[0]));
-    int position = Integer.parseInt(args[1]);
-    boolean value = Boolean.parseBoolean(args[2]);
+    PackedLong initialValue = new PackedLong();
+    int position = Integer.parseInt("3");
+    boolean value = Boolean.parseBoolean("true");
 
     initialValue.set(position, value);
     PackedLong updatedValue = initialValue;
@@ -32,6 +32,7 @@ public class MainPackedLong {
     System.out.printf("Setting position %d to %s gives %s%n", position, value, updatedValue);
     System.out.printf("Initial: %s%n", getAllPositions(initialValue));
     System.out.printf("Final:   %s%n", getAllPositions(updatedValue));
+    System.out.println(new PackedLong().hashCode());
   }
 
   private static String getAllPositions(PackedLong packedLong) {

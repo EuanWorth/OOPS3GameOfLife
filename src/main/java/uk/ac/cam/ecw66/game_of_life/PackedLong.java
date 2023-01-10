@@ -17,6 +17,7 @@
 package uk.ac.cam.ecw66.game_of_life;
 
 import java.util.AbstractList;
+import java.util.Objects;
 
 class PackedLong extends AbstractList<Boolean> implements Cloneable {
     public long getLong() {
@@ -76,6 +77,15 @@ class PackedLong extends AbstractList<Boolean> implements Cloneable {
 
     @Override
     public boolean equals(Object o) {
-        return super.equals(o);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        PackedLong that = (PackedLong) o;
+        return packed == that.packed;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), packed);
     }
 }
